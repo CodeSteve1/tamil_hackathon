@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tamil Grammar Corrector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="nav">
+        <h1>Tamil Grammar Corrector</h1>
+        <button class="home-btn" onclick="window.location.href='/'">Home</button>
+    </div>
+    <div class="container">
+        <form method="post">
+            <textarea name="text" placeholder="Enter Tamil text with grammatical errors..." required>{{ request.form.get('text', '') }}</textarea>
+            <div class="button-group">
+                <button type="submit">Correct Grammar</button>
+            </div>
+        </form>
+        {% if corrected_text %}
+            <div class="output">
+                <h2>Corrected Text:</h2>
+                <p class="formatted-text">{{ corrected_text }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
