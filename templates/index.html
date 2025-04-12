@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tanglish ➡️ தமிழ் Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Tanglish ➡️ தமிழ் Translator</h1>
+        <form method="post" id="translate-form">
+            <textarea name="text" id="text" placeholder="Type or speak in Tamil / Tanglish / English" required>{{ request.form.get('text', '') }}</textarea>
+            <div class="button-group">
+                <button type="submit">Translate</button>
+                <button type="button" id="mic-btn" title="Speak">🎤</button>
+            </div>
+        </form>
+
+        {% if translated_text %}
+        <div class="output">
+            <h2>🔁 Tamil Translation:</h2>
+            <p>{{ translated_text }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        const micBtn = document.getElementById('mic-btn');
+        const textarea = document.getElementById('text');
+
+        micBtn.addEventListener('click', () => {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("Sorry, your browser doesn't support speech recognition.");
+                return;
+            }
+
+            // Automatically use browser language or default to 'en-US'
+            const selectedLang = navigator.language || 'en-US';
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = selectedLang;
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            recognition.continuous = false;
+
+            recognition.start();
+            micBtn.innerText = '🎙️ Listening...';
+            micBtn.disabled = true;
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                textarea.value += transcript + " ";
+            };
+
+            recognition.onerror = function(event) {
+                alert('Error: ' + event.error);
+            };
+
+            recognition.onend = function() {
+                micBtn.innerText = '🎤';
+                micBtn.disabled = false;
+            };
+        });
+    </script>
+</body>
+</html>
