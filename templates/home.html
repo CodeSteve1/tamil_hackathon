@@ -1,20 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Multi-App Portal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>Tamil Hackathon</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* Overlay Background using the local image from static/images/homepage.jpg */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 1000vw;
+      height: 1000vh;
+      background: url('{{ url_for("static", filename="images/homepage.jpg") }}') no-repeat center center;
+      background-size: cover;
+      filter: blur(4px);
+      transform: scale(1.05);
+      z-index: -1;
+    }
+    /* Ensure that content is positioned above the overlay */
+    .nav, .container {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
-    <div class="nav">
-        <h1>Multi-App Portal</h1>
+  <!-- Background Overlay -->
+  <div class="overlay"></div>
+  
+  <!-- Navigation Bar -->
+  <div class="nav">
+    <h1>Electro Spark</h1>
+  </div>
+  
+  <!-- Main Content Container -->
+  <div class="container">
+    <h2>Welcome! Select an option</h2>
+    <div class="button-group">
+      <button onclick="window.location.href='/translator'">Translator</button>
+      <button onclick="window.location.href='/grammar'">Tamil Grammar Corrector</button>
+      <button onclick="window.location.href='/history'">Kings</button>
     </div>
-    <div class="container">
-        <h2>Welcome!</h2>
-        <div class="button-group">
-            <button onclick="window.location.href='/translator'">Translator</button>
-            <button onclick="window.location.href='/grammar'">Tamil Grammar Corrector</button>
-        </div>
-    </div>
+  </div>
 </body>
 </html>

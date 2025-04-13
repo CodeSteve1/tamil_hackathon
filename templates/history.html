@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <title>தமிழர் வரலாறு - Chera, Chola, Pandya</title>
+  <style>
+    /* Global Styles */
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: all 0.3s ease;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    .dynasty {
+      margin-bottom: 4rem;
+      background-color: #1e1e1e;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    }
+    img {
+      width: 100%;
+      border-radius: 1rem;
+      margin: 1rem 0;
+    }
+    .main-btn {
+      background: linear-gradient(to right, #ff5f6d, #ffc371);
+      color: white;
+      padding: 0.8rem 1.6rem;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      border-radius: 2rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+      display: inline-block;
+      margin: 1rem;
+    }
+    .main-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+    .lang-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    .lang-toggle button {
+      background: #333;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .nav-links {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .nav-links a {
+      margin: 0 1rem;
+      color: #ffcc70;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    /* Language content sections */
+    .content {
+      display: none;
+    }
+    /* Default show Tamil */
+    .content.ta { display: block; }
+  </style>
+</head>
+<body>
+  <!-- Language Toggle Button -->
+  <div class="lang-toggle">
+    <button onclick="toggleLanguage()">🌐 <span id="lang-label">English</span></button>
+  </div>
+
+  <div class="container">
+    <h1 id="page-title">🏛️ தமிழர் வரலாறு: சேரர், சோழர், பாண்டியர்</h1>
+
+    <div class="nav-links">
+      <a href="#chola">சோழர்</a> |
+      <a href="#chera">சேரர்</a> |
+      <a href="#pandya">பாண்டியர்</a>
+    </div>
+
+    <!-- Chola Dynasty Section -->
+    <div class="dynasty" id="chola">
+      <h2>👑 சோழர் (Chola Dynasty)</h2>
+      <img src="{{ url_for('static', filename='images/chola-temple.jpg') }}" alt="Chola Temple">
+      
+      <!-- Tamil Content for Cholas -->
+      <div class="content ta" id="chola-ta">
+        <h3>வரலாற்று மற்றும் அரசியல்</h3>
+        <p>
+          சோழர் பேரரசு, இந்தியாவின் மிகப்பெரிய மற்றும் நீண்ட கால தமிழர் பேரரசுகளில் ஒன்றாகும். கி.மு. 9ஆம் நூற்றாண்டில் துவங்கிய இம்மேலாண்மை, கடல் வணிகத்தில், இராணுவக் கட்டமைப்பில் மற்றும் நிர்வாகத்தில் அதி சிறந்த முறையில் இருக்கிறது. ராஜராஜ சோழன் I மற்றும் இராஜேந்திர சோழன் போன்ற மன்னர்கள் தங்கள் ஆட்சியை இந்தியா, இலங்கை மற்றும் தெற்கு ஆசிய நாடுகளில் விரிவுபடுத்தின.
+        </p>
+        <h3>கலை, கட்டிடக்கலை மற்றும் இலக்கியம்</h3>
+        <p>
+          சோழர் காலத்தில் கட்டப்பட்ட பிரகதீஸ்வரர் கோயில், கங்கைகொண்ட கோயில் போன்ற கட்டிடக்கலை நம்பல்களால் இளைப்பாறவில்லை. இதுவே சீர் கட்டிடக்கலையும், சங்க இலக்கிய வளர்ச்சியையும் ஊக்குவித்தது. பல தலைசிறந்த கவிகள், நாவல் எழுத்தாளர்கள் இவ்வரசில் தங்கள் பணி மூலம் தமிழின் செல்வாக்கை உலகிற்கு அறிமுகப்படுத்தினர்.
+        </p>
+        <h3>இரோக்கிய மற்றும் பொருளாதாரம்</h3>
+        <p>
+          சோழர் ஆட்சி காலத்தில் கடல் வர்த்தகம் மற்றும் உள்நாட்டு வர்த்தகம் மிகுந்த அளவில் வளர்ந்து, நாட்டின் பொருளாதாரத்தை பலமுறையாக மேம்படுத்தியது. வெற்றிகரமான நிர்வாக முறைகள் மற்றும் நவீன கட்டுமான தொழில்நுட்பங்கள் அரசு நிர்வாகம் மிகச் சீரியதாக இருந்தன.
+        </p>
+        <p>
+          <b>முக்கிய அரசிகள்:</b> ராஜராஜ சோழன் I, இராஜேந்திர சோழன், மற்றும் பிற மன்னர்கள்.
+        </p>
+      </div>
+      
+      <!-- English Content for Cholas -->
+      <div class="content en" id="chola-en">
+        <h3>Historical and Political Overview</h3>
+        <p>
+          The Chola dynasty is one of the most eminent and long-ruling Tamil empires in Indian history. Starting around the 9th century CE, their prowess in maritime trade, military organization, and administrative reforms allowed them to expand their influence over India, Sri Lanka, and parts of Southeast Asia. Emperors like Raja Raja Chola I and Rajendra Chola played a significant role in elevating this empire.
+        </p>
+        <h3>Art, Architecture, and Literature</h3>
+        <p>
+          The Chola period is renowned for its magnificent temples like the Brihadeeswarar Temple and Gangaikonda Cholapuram. This era saw a flourishing of temple architecture that influenced later developments in South India. Accomplished poets and scholars also enriched Tamil literature during this time.
+        </p>
+        <h3>Economy and Administration</h3>
+        <p>
+          Under Chola rule, both maritime and inland trade thrived, bolstered by efficient administration and advanced technologies in construction and governance. Their systematic policies contributed greatly to the empire’s prosperity and stability.
+        </p>
+        <p>
+          <b>Key Emperors:</b> Raja Raja Chola I, Rajendra Chola, among others.
+        </p>
+      </div>
+    </div>
+
+    <!-- Chera Dynasty Section -->
+    <div class="dynasty" id="chera">
+      <h2>🛡️ சேரர் (Chera Dynasty)</h2>
+      <img src="{{ url_for('static', filename='images/chera-trade.jpg') }}" alt="Chera Trade">
+      
+      <!-- Tamil Content for Cheras -->
+      <div class="content ta" id="chera-ta">
+        <h3>வரலாற்று மற்றும் ஆட்சிக்காலம்</h3>
+        <p>
+          சேரர் பேரரசு, தெற்கு மற்றும் மேற்குத் தமிழகத்தில் பரவியிருந்தது. சங்க இலக்கியத்தில், கொழும்பு மற்றும் முசிறி துறைமுகங்கள் ஆகியவை சேரர் வணிகத்தின் செல்வாக்கை எடுத்துக்காட்டுகின்றன. செங்குட்டுவன் சேரன் போன்ற மன்னர்கள் இலக்கியம், கலாசாரம் மற்றும் சுமந்திரத்தை மேம்படுத்துவதாகும்.
+        </p>
+        <h3>கலை, கட்டிடக்கலை மற்றும் சமூகம்</h3>
+        <p>
+          சேரர் ஆட்சியில் கலை மற்றும் கட்டிடக்கலை அடர்த்தியாக வளர்ந்து, நகரங்கள் மிக நவீன அண்மையில் அமைக்கப்பட்டன. சங்க கால காவியங்களில் மற்றும் சங்க இலக்கியங்களில் சேர மன்னர்களின் புகழை அடையாளப்படுத்துகிறார்கள்.
+        </p>
+        <h3>பொருளாதாரம் மற்றும் வணிகம்</h3>
+        <p>
+          சேரர் ஆட்சியில், மலபார் பகுதியின் கடல் வர்த்தகத் திறன் மற்றும் உள்நாட்டு வணிகம் முக்கிய பங்கு வகித்தன. கிரேக்க, ரோமானிய மற்றும் எகிப்தியர்களுடன் நடத்தப்பட்ட வணிக உறவுகள், பணம் மற்றும் வளங்களை பரிமாறிக் கொள்வதிலும் சேரர் பேரரசு சிறந்த நிலையை அடைந்தது.
+        </p>
+        <p>
+          <b>முக்கிய அரசிகள்:</b> செங்குட்டுவன் சேரன் மற்றும் பிற ஆட்சியாளர்கள்.
+        </p>
+      </div>
+      
+      <!-- English Content for Cheras -->
+      <div class="content en" id="chera-en">
+        <h3>Historical and Reigning Period</h3>
+        <p>
+          The Chera dynasty ruled over parts of ancient Tamilakam, particularly in the western regions. Known for its flourishing trade—evidenced by ancient ports like Muziris—the Chera empire established vital commercial links with the Greeks, Romans, and Egyptians. Rulers such as Senguttuvan Chera are celebrated in classical literature for their contributions to art and culture.
+        </p>
+        <h3>Art, Architecture, and Society</h3>
+        <p>
+          During the Chera period, the arts and architecture thrived, and urban centers developed with remarkable sophistication. Their legacy is well recorded in Sangam literature, highlighting their support for literature and social reforms.
+        </p>
+        <h3>Economy and Trade</h3>
+        <p>
+          The Chera empire’s economic strength stemmed from robust maritime trade and domestic commerce. Their extensive trade networks with Mediterranean civilizations enriched the region and positioned the Cheras as key players in the ancient global economy.
+        </p>
+        <p>
+          <b>Key Rulers:</b> Senguttuvan Chera and other notable monarchs.
+        </p>
+      </div>
+    </div>
+
+    <!-- Pandya Dynasty Section -->
+    <div class="dynasty" id="pandya">
+      <h2>⚔️ பாண்டியர் (Pandya Dynasty)</h2>
+      <img src="{{ url_for('static', filename='images/pandya-temple.jpg') }}" alt="Pandya Temple">
+      
+      <!-- Tamil Content for Pandyas -->
+      <div class="content ta" id="pandya-ta">
+        <h3>வரலாற்று மற்றும் ஆட்சிக்காலம்</h3>
+        <p>
+          பாண்டியர், மதுரை தலைமையிலான, தமிழ் இலக்கிய வளர்ச்சியில் முக்கிய பங்காற்றிய பேரரசாகும். சங்க இலக்கியத்தின் பல பகுதிகளும் பாண்டியர் ஆட்சியில் உருவானவை, மேலும் இத்தகைய ஆட்சிக் காலங்களில் கலாசாரம், கல்வி மற்றும் சமுதாய நெறிமுறைகள் முக்கிய விகிதத்தில் முன்னேறின.
+        </p>
+        <h3>கலை, கட்டிடக்கலை மற்றும் தாராளம்</h3>
+        <p>
+          பாண்டியர் ஆட்சியில் கட்டப்பட்ட கோயில்கள், வாசல் வடிவமைப்புகள் மற்றும் கலைச்செறிவுகள், அவர்களின் உன்னதமான கலாச்சாரத்தை பிரதிபலிக்கின்றன. மதுரை மீனாட்சி அம்மன் கோயில் போன்ற கட்டடங்கள், அந்த காலத்தின் சிறந்த கட்டிடக் கலை நம்பல்களை வழங்குகின்றன.
+        </p>
+        <h3>பொருளாதாரம், வர்த்தகம் மற்றும் இலக்கியம்</h3>
+        <p>
+          பாண்டியர் ஆட்சியில், விவசாய வளர்ச்சி, கடல் மற்றும் உள்நாட்டு வர்த்தகம் பெரிதும் முன்னேறியது. இலக்கியம் மற்றும் சங்க கவிதைகள், புகழ்பெற்ற நாவலர்களின் படைப்புகள், மற்றும் கல்வெட்டுகளின் மூலம் பாண்டியர் ஆட்சியின் செல்வாக்கு உலகிற்கு அறிமுகமானது.
+        </p>
+        <p>
+          <b>முக்கிய ஆட்சியாளர்கள்:</b> மாறவர்மன் சுந்தர பாண்டியன், அரிவுடை நம்பி மற்றும் பிற மன்னர்கள்.
+        </p>
+      </div>
+      
+      <!-- English Content for Pandyas -->
+      <div class="content en" id="pandya-en">
+        <h3>Historical and Reigning Period</h3>
+        <p>
+          The Pandya dynasty, with its capital at Madurai, played a vital role in fostering Tamil literature and cultural advancements. Their reign is marked by a strong emphasis on education, art, and societal reforms. During the Sangam period, many poems and literary works highlight the glory of Pandya rule.
+        </p>
+        <h3>Art, Architecture, and Legacy</h3>
+        <p>
+          The Pandyas were responsible for constructing some of the most iconic temples and architectural masterpieces in South India, such as the Meenakshi Temple in Madurai. Their patronage of the arts helped to cultivate a rich legacy in sculpture, painting, and urban design.
+        </p>
+        <h3>Economy, Trade, and Literature</h3>
+        <p>
+          Economic prosperity under the Pandya dynasty was driven by advancements in agriculture and thriving maritime and inland trade. The era saw a blossoming of literature, with many classical Tamil works and inscriptions testifying to the dynasty’s influence.
+        </p>
+        <p>
+          <b>Key Rulers:</b> Sundara Pandyan, Arivudai Nambi, among other notable monarchs.
+        </p>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <a href="/" class="main-btn">🏠 Home</a>
+    </div>
+  </div>
+
+  <script>
+    // Current language flag: true = Tamil; false = English.
+    let isTamil = true;
+    function toggleLanguage() {
+      isTamil = !isTamil;
+      // Update toggle button text
+      document.getElementById("lang-label").innerText = isTamil ? "English" : "தமிழ்";
+      
+      // Update page title
+      document.getElementById("page-title").innerText = isTamil ? 
+        "🏛️ தமிழர் வரலாறு: சேரர், சோழர், பாண்டியர்" : 
+        "🏛️ Tamil History: Chera, Chola, Pandya";
+      
+      // Toggle visibility of language-specific content:
+      // Show Tamil content if isTamil is true; otherwise, show English.
+      let taElements = document.querySelectorAll(".content.ta");
+      let enElements = document.querySelectorAll(".content.en");
+      
+      if(isTamil) {
+        taElements.forEach(el => el.style.display = "block");
+        enElements.forEach(el => el.style.display = "none");
+      } else {
+        taElements.forEach(el => el.style.display = "none");
+        enElements.forEach(el => el.style.display = "block");
+      }
+    }
+  </script>
+</body>
+</html>

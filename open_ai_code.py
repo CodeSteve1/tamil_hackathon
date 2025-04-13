@@ -6,7 +6,7 @@ from langdetect import detect
 app = Flask(__name__)
 
 # Replace with your actual key
-openai.api_key = "check whatsapp for the api key"
+openai.api_key = "whatsapp"
 
 @app.route('/')
 def home():
@@ -28,7 +28,7 @@ def translator():
             translated_text = user_input  
         else:
             response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4o",
                 messages=[
                     {
                         "role": "system",
@@ -59,6 +59,11 @@ def grammar():
         corrected_text = response['choices'][0]['message']['content']
         print(corrected_text)
     return render_template('grammar.html', corrected_text=corrected_text)
+
+
+@app.route('/history')
+def history():
+    return render_template('history.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
