@@ -1,276 +1,973 @@
 <!DOCTYPE html>
 <html lang="ta">
 <head>
-  <meta charset="UTF-8">
-  <title>தமிழர் வரலாறு - Chera, Chola, Pandya</title>
-  <style>
-    /* Global Styles */
-    body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      transition: all 0.3s ease;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 2rem;
-    }
-    h1, h2, h3 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    p {
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-    .dynasty {
-      margin-bottom: 4rem;
-      background-color: #1e1e1e;
-      border-radius: 1.5rem;
-      padding: 2rem;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
-    }
-    img {
-      width: 100%;
-      border-radius: 1rem;
-      margin: 1rem 0;
-    }
-    .main-btn {
-      background: linear-gradient(to right, #ff5f6d, #ffc371);
-      color: white;
-      padding: 0.8rem 1.6rem;
-      font-weight: bold;
-      font-size: 1rem;
-      border: none;
-      border-radius: 2rem;
-      cursor: pointer;
-      text-decoration: none;
-      transition: 0.3s;
-      display: inline-block;
-      margin: 1rem;
-    }
-    .main-btn:hover {
-      opacity: 0.9;
-      transform: scale(1.05);
-    }
-    .lang-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-    .lang-toggle button {
-      background: #333;
-      color: #fff;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 2rem;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .nav-links {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .nav-links a {
-      margin: 0 1rem;
-      color: #ffcc70;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .nav-links a:hover {
-      text-decoration: underline;
-    }
-    /* Language content sections */
-    .content {
-      display: none;
-    }
-    /* Default show Tamil */
-    .content.ta { display: block; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தமிழர் வரலாறு - Chera, Chola, Pandya</title>
+    <meta name="description" content="Explore the rich history of the Tamil dynasties — Chera, Chola, and Pandya in Tamil and English.">
+    <meta name="keywords" content="Tamil history, Chera dynasty, Chola dynasty, Pandya dynasty, Tamil culture, bilingual history">
+    <style>
+        /* Global Styles */
+        :root {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --card-bg: #1e1e1e;
+            --accent-color: #ffcc70;
+            --secondary-color: #ff5f6d;
+            --tertiary-color: #ffc371;
+            --nav-bg: rgba(30, 30, 30, 0.9);
+            --timeline-bg: #2a2a2a;
+            --timeline-dot: #ff5f6d;
+            --box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+            --border-color: #333;
+        }
+
+        .light-mode {
+            --bg-color: #f5f5f5;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+            --accent-color: #d4653f;
+            --secondary-color: #d4653f;
+            --tertiary-color: #e98549;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --timeline-bg: #eaeaea;
+            --timeline-dot: #d4653f;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --border-color: #ddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', 'Latha', 'Noto Sans Tamil', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url('https://images.unsplash.com/photo-1588416499018-d8c621df9887?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            margin-bottom: 3rem;
+            border-radius: 0 0 2rem 2rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            padding-bottom: 1rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--secondary-color), var(--tertiary-color));
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .dynasty {
+            margin-bottom: 5rem;
+            background-color: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dynasty:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--secondary-color), var(--tertiary-color));
+        }
+
+        .dynasty-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dynasty-icon {
+            font-size: 3rem;
+            margin-right: 1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-box {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .feature-box h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-item {
+            height: 200px;
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .img-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
+            transition: transform 0.5s;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding-left: 50px;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--timeline-bg);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--timeline-dot);
+            border: 4px solid var(--card-bg);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .main-btn {
+            background: linear-gradient(to right, var(--secondary-color), var(--tertiary-color));
+            color: white;
+            padding: 0.8rem 1.6rem;
+            font-weight: bold;
+            font-size: 1rem;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+            margin: 1rem;
+        }
+
+        .main-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .toggle-btn {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .lang-btn span,
+        .theme-btn span {
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            background: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            padding: 1rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            z-index: 100;
+            border-radius: 0 0 1rem 1rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .nav-links a {
+            margin: 0 1rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .content { display: none; }
+        .content.ta { display: block; }
+
+        .quote-box {
+            border-left: 5px solid var(--accent-color);
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            background: rgba(0,0,0,0.1);
+            border-radius: 0 1rem 1rem 0;
+            font-style: italic;
+        }
+
+        .cite {
+            display: block;
+            text-align: right;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .key-figures {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .figure-card {
+            flex: 1 1 250px;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .figure-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .figure-info {
+            padding: 1.5rem;
+        }
+
+        .figure-info h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .figure-info p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cultural-impact {
+            background: rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        table th, table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table th {
+            background: rgba(0,0,0,0.1);
+            color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            background: var(--card-bg);
+            border-radius: 2rem 2rem 0 0;
+        }
+
+        footer p {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header { height: 300px; }
+            header h1 { font-size: 2rem; }
+            .dynasty { padding: 1.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+            .toggle-container { flex-direction: column; }
+            .img-container { height: 200px; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-<body>
-  <!-- Language Toggle Button -->
-  <div class="lang-toggle">
-    <button onclick="toggleLanguage()">🌐 <span id="lang-label">English</span></button>
-  </div>
-
-  <div class="container">
-    <h1 id="page-title">🏛️ தமிழர் வரலாறு: சேரர், சோழர், பாண்டியர்</h1>
-
-    <div class="nav-links">
-      <a href="#chola">சோழர்</a> |
-      <a href="#chera">சேரர்</a> |
-      <a href="#pandya">பாண்டியர்</a>
+<body lang="ta">
+    <div class="toggle-container" role="region" aria-label="Toggle Controls">
+        <button class="toggle-btn lang-btn" aria-label="Toggle Language" onclick="toggleLanguage()">
+            🌐 <span id="lang-label">தமிழ்</span>
+        </button>
+        <button class="toggle-btn theme-btn" aria-label="Toggle Theme" onclick="toggleTheme()">
+            🌓 <span id="theme-label">ஒளி</span>
+        </button>
     </div>
 
-    <!-- Chola Dynasty Section -->
-    <div class="dynasty" id="chola">
-      <h2>👑 சோழர் (Chola Dynasty)</h2>
-      <img src="{{ url_for('static', filename='images/chola-temple.jpg') }}" alt="Chola Temple">
-      
-      <!-- Tamil Content for Cholas -->
-      <div class="content ta" id="chola-ta">
-        <h3>வரலாற்று மற்றும் அரசியல்</h3>
-        <p>
-          சோழர் பேரரசு, இந்தியாவின் மிகப்பெரிய மற்றும் நீண்ட கால தமிழர் பேரரசுகளில் ஒன்றாகும். கி.மு. 9ஆம் நூற்றாண்டில் துவங்கிய இம்மேலாண்மை, கடல் வணிகத்தில், இராணுவக் கட்டமைப்பில் மற்றும் நிர்வாகத்தில் அதி சிறந்த முறையில் இருக்கிறது. ராஜராஜ சோழன் I மற்றும் இராஜேந்திர சோழன் போன்ற மன்னர்கள் தங்கள் ஆட்சியை இந்தியா, இலங்கை மற்றும் தெற்கு ஆசிய நாடுகளில் விரிவுபடுத்தின.
-        </p>
-        <h3>கலை, கட்டிடக்கலை மற்றும் இலக்கியம்</h3>
-        <p>
-          சோழர் காலத்தில் கட்டப்பட்ட பிரகதீஸ்வரர் கோயில், கங்கைகொண்ட கோயில் போன்ற கட்டிடக்கலை நம்பல்களால் இளைப்பாறவில்லை. இதுவே சீர் கட்டிடக்கலையும், சங்க இலக்கிய வளர்ச்சியையும் ஊக்குவித்தது. பல தலைசிறந்த கவிகள், நாவல் எழுத்தாளர்கள் இவ்வரசில் தங்கள் பணி மூலம் தமிழின் செல்வாக்கை உலகிற்கு அறிமுகப்படுத்தினர்.
-        </p>
-        <h3>இரோக்கிய மற்றும் பொருளாதாரம்</h3>
-        <p>
-          சோழர் ஆட்சி காலத்தில் கடல் வர்த்தகம் மற்றும் உள்நாட்டு வர்த்தகம் மிகுந்த அளவில் வளர்ந்து, நாட்டின் பொருளாதாரத்தை பலமுறையாக மேம்படுத்தியது. வெற்றிகரமான நிர்வாக முறைகள் மற்றும் நவீன கட்டுமான தொழில்நுட்பங்கள் அரசு நிர்வாகம் மிகச் சீரியதாக இருந்தன.
-        </p>
-        <p>
-          <b>முக்கிய அரசிகள்:</b> ராஜராஜ சோழன் I, இராஜேந்திர சோழன், மற்றும் பிற மன்னர்கள்.
-        </p>
-      </div>
-      
-      <!-- English Content for Cholas -->
-      <div class="content en" id="chola-en">
-        <h3>Historical and Political Overview</h3>
-        <p>
-          The Chola dynasty is one of the most eminent and long-ruling Tamil empires in Indian history. Starting around the 9th century CE, their prowess in maritime trade, military organization, and administrative reforms allowed them to expand their influence over India, Sri Lanka, and parts of Southeast Asia. Emperors like Raja Raja Chola I and Rajendra Chola played a significant role in elevating this empire.
-        </p>
-        <h3>Art, Architecture, and Literature</h3>
-        <p>
-          The Chola period is renowned for its magnificent temples like the Brihadeeswarar Temple and Gangaikonda Cholapuram. This era saw a flourishing of temple architecture that influenced later developments in South India. Accomplished poets and scholars also enriched Tamil literature during this time.
-        </p>
-        <h3>Economy and Administration</h3>
-        <p>
-          Under Chola rule, both maritime and inland trade thrived, bolstered by efficient administration and advanced technologies in construction and governance. Their systematic policies contributed greatly to the empire’s prosperity and stability.
-        </p>
-        <p>
-          <b>Key Emperors:</b> Raja Raja Chola I, Rajendra Chola, among others.
-        </p>
-      </div>
-    </div>
+    <header>
+        <div class="content ta" id="header-ta">
+            <h1>தமிழர் பேரரசு: மூவேந்தர்கள்</h1>
+            <p>வரலாற்றில் பதிவுபெற்ற மூன்று முக்கிய தமிழ் பேரரசுகளான சேரர், சோழர், பாண்டியர் பற்றிய விரிவான ஆய்வு.</p>
+        </div>
+        <div class="content en" id="header-en">
+            <h1>Tamil Dynasties: The Three Crowned Kings</h1>
+            <p>An in-depth exploration of the three major Tamil dynasties—the Chera, Chola, and Pandya kingdoms.</p>
+        </div>
+    </header>
 
-    <!-- Chera Dynasty Section -->
-    <div class="dynasty" id="chera">
-      <h2>🛡️ சேரர் (Chera Dynasty)</h2>
-      <img src="{{ url_for('static', filename='images/chera-trade.jpg') }}" alt="Chera Trade">
-      
-      <!-- Tamil Content for Cheras -->
-      <div class="content ta" id="chera-ta">
-        <h3>வரலாற்று மற்றும் ஆட்சிக்காலம்</h3>
-        <p>
-          சேரர் பேரரசு, தெற்கு மற்றும் மேற்குத் தமிழகத்தில் பரவியிருந்தது. சங்க இலக்கியத்தில், கொழும்பு மற்றும் முசிறி துறைமுகங்கள் ஆகியவை சேரர் வணிகத்தின் செல்வாக்கை எடுத்துக்காட்டுகின்றன. செங்குட்டுவன் சேரன் போன்ற மன்னர்கள் இலக்கியம், கலாசாரம் மற்றும் சுமந்திரத்தை மேம்படுத்துவதாகும்.
-        </p>
-        <h3>கலை, கட்டிடக்கலை மற்றும் சமூகம்</h3>
-        <p>
-          சேரர் ஆட்சியில் கலை மற்றும் கட்டிடக்கலை அடர்த்தியாக வளர்ந்து, நகரங்கள் மிக நவீன அண்மையில் அமைக்கப்பட்டன. சங்க கால காவியங்களில் மற்றும் சங்க இலக்கியங்களில் சேர மன்னர்களின் புகழை அடையாளப்படுத்துகிறார்கள்.
-        </p>
-        <h3>பொருளாதாரம் மற்றும் வணிகம்</h3>
-        <p>
-          சேரர் ஆட்சியில், மலபார் பகுதியின் கடல் வர்த்தகத் திறன் மற்றும் உள்நாட்டு வணிகம் முக்கிய பங்கு வகித்தன. கிரேக்க, ரோமானிய மற்றும் எகிப்தியர்களுடன் நடத்தப்பட்ட வணிக உறவுகள், பணம் மற்றும் வளங்களை பரிமாறிக் கொள்வதிலும் சேரர் பேரரசு சிறந்த நிலையை அடைந்தது.
-        </p>
-        <p>
-          <b>முக்கிய அரசிகள்:</b> செங்குட்டுவன் சேரன் மற்றும் பிற ஆட்சியாளர்கள்.
-        </p>
-      </div>
-      
-      <!-- English Content for Cheras -->
-      <div class="content en" id="chera-en">
-        <h3>Historical and Reigning Period</h3>
-        <p>
-          The Chera dynasty ruled over parts of ancient Tamilakam, particularly in the western regions. Known for its flourishing trade—evidenced by ancient ports like Muziris—the Chera empire established vital commercial links with the Greeks, Romans, and Egyptians. Rulers such as Senguttuvan Chera are celebrated in classical literature for their contributions to art and culture.
-        </p>
-        <h3>Art, Architecture, and Society</h3>
-        <p>
-          During the Chera period, the arts and architecture thrived, and urban centers developed with remarkable sophistication. Their legacy is well recorded in Sangam literature, highlighting their support for literature and social reforms.
-        </p>
-        <h3>Economy and Trade</h3>
-        <p>
-          The Chera empire’s economic strength stemmed from robust maritime trade and domestic commerce. Their extensive trade networks with Mediterranean civilizations enriched the region and positioned the Cheras as key players in the ancient global economy.
-        </p>
-        <p>
-          <b>Key Rulers:</b> Senguttuvan Chera and other notable monarchs.
-        </p>
-      </div>
-    </div>
+    <nav class="nav-links" role="navigation" aria-label="Main Navigation">
+        <div class="content ta">
+            <a href="#intro">அறிமுகம்</a> |
+            <a href="#chola">சோழர்</a> |
+            <a href="#chera">சேரர்</a> |
+            <a href="#pandya">பாண்டியர்</a> |
+            <a href="#legacy">பாரம்பரியம்</a>
+        </div>
+        <div class="content en">
+            <a href="#intro">Introduction</a> |
+            <a href="#chola">Chola</a> |
+            <a href="#chera">Chera</a> |
+            <a href="#pandya">Pandya</a> |
+            <a href="#legacy">Legacy</a>
+        </div>
+    </nav>
 
-    <!-- Pandya Dynasty Section -->
-    <div class="dynasty" id="pandya">
-      <h2>⚔️ பாண்டியர் (Pandya Dynasty)</h2>
-      <img src="{{ url_for('static', filename='images/pandya-temple.jpg') }}" alt="Pandya Temple">
-      
-      <!-- Tamil Content for Pandyas -->
-      <div class="content ta" id="pandya-ta">
-        <h3>வரலாற்று மற்றும் ஆட்சிக்காலம்</h3>
-        <p>
-          பாண்டியர், மதுரை தலைமையிலான, தமிழ் இலக்கிய வளர்ச்சியில் முக்கிய பங்காற்றிய பேரரசாகும். சங்க இலக்கியத்தின் பல பகுதிகளும் பாண்டியர் ஆட்சியில் உருவானவை, மேலும் இத்தகைய ஆட்சிக் காலங்களில் கலாசாரம், கல்வி மற்றும் சமுதாய நெறிமுறைகள் முக்கிய விகிதத்தில் முன்னேறின.
-        </p>
-        <h3>கலை, கட்டிடக்கலை மற்றும் தாராளம்</h3>
-        <p>
-          பாண்டியர் ஆட்சியில் கட்டப்பட்ட கோயில்கள், வாசல் வடிவமைப்புகள் மற்றும் கலைச்செறிவுகள், அவர்களின் உன்னதமான கலாச்சாரத்தை பிரதிபலிக்கின்றன. மதுரை மீனாட்சி அம்மன் கோயில் போன்ற கட்டடங்கள், அந்த காலத்தின் சிறந்த கட்டிடக் கலை நம்பல்களை வழங்குகின்றன.
-        </p>
-        <h3>பொருளாதாரம், வர்த்தகம் மற்றும் இலக்கியம்</h3>
-        <p>
-          பாண்டியர் ஆட்சியில், விவசாய வளர்ச்சி, கடல் மற்றும் உள்நாட்டு வர்த்தகம் பெரிதும் முன்னேறியது. இலக்கியம் மற்றும் சங்க கவிதைகள், புகழ்பெற்ற நாவலர்களின் படைப்புகள், மற்றும் கல்வெட்டுகளின் மூலம் பாண்டியர் ஆட்சியின் செல்வாக்கு உலகிற்கு அறிமுகமானது.
-        </p>
-        <p>
-          <b>முக்கிய ஆட்சியாளர்கள்:</b> மாறவர்மன் சுந்தர பாண்டியன், அரிவுடை நம்பி மற்றும் பிற மன்னர்கள்.
-        </p>
-      </div>
-      
-      <!-- English Content for Pandyas -->
-      <div class="content en" id="pandya-en">
-        <h3>Historical and Reigning Period</h3>
-        <p>
-          The Pandya dynasty, with its capital at Madurai, played a vital role in fostering Tamil literature and cultural advancements. Their reign is marked by a strong emphasis on education, art, and societal reforms. During the Sangam period, many poems and literary works highlight the glory of Pandya rule.
-        </p>
-        <h3>Art, Architecture, and Legacy</h3>
-        <p>
-          The Pandyas were responsible for constructing some of the most iconic temples and architectural masterpieces in South India, such as the Meenakshi Temple in Madurai. Their patronage of the arts helped to cultivate a rich legacy in sculpture, painting, and urban design.
-        </p>
-        <h3>Economy, Trade, and Literature</h3>
-        <p>
-          Economic prosperity under the Pandya dynasty was driven by advancements in agriculture and thriving maritime and inland trade. The era saw a blossoming of literature, with many classical Tamil works and inscriptions testifying to the dynasty’s influence.
-        </p>
-        <p>
-          <b>Key Rulers:</b> Sundara Pandyan, Arivudai Nambi, among other notable monarchs.
-        </p>
-      </div>
-    </div>
+    <div class="container">
+        <section class="dynasty" id="intro">
+            <div class="dynasty-header">
+                <div class="dynasty-icon">👑</div>
+                <h2>அறிமுகம் (Introduction)</h2>
+            </div>
+            <div class="content ta">
+                <p>தென்னிந்தியாவின் வளமான வரலாற்றில், சேரர், சோழர், பாண்டியர் ஆகிய மூன்று தமிழ் அரச மரபுகள் மிக முக்கியமானவை. இவர்கள் 'மூவேந்தர்கள்' என்று அழைக்கப்பட்டனர். இந்த மூன்று அரசுகளும் பல நூற்றாண்டுகளாக இப்பகுதியை ஆட்சி செய்து, தமக்கென தனித்துவமான கலாச்சாரம், கலை, கட்டிடக்கலை மற்றும் அரசியல் அமைப்புகளை உருவாக்கினர். இவர்களின் வரலாறு வீரமும், கலைத்திறனும், தொடர்ச்சியான அதிகாரப் போராட்டங்களும் நிறைந்தது.</p>
+                <p>இந்த வலைத்தளம் இந்த மூன்று அரசுகளின் பொற்காலத்தையும், அவர்களின் சாதனைகளையும், அவர்கள் விட்டுச்சென்ற அழியாத பாரம்பரியத்தையும் ஆராய்கிறது.</p>
+            </div>
+            <div class="content en">
+                <p>In the rich tapestry of South Indian history, the Chera, Chola, and Pandya dynasties stand out as the three primary Tamil kingdoms, collectively known as the 'Moovendhargal' or the Three Crowned Kings. These kingdoms held sway over the southern parts of India for centuries, each carving out a unique cultural, artistic, architectural, and political identity. Their history is marked by periods of glory, artistic achievements, and continuous power struggles.</p>
+                <p>This website delves into the golden ages of these three dynasties, their significant contributions, and the enduring legacy they left behind.</p>
+            </div>
+        </section>
 
-    <div style="text-align:center;">
-      <a href="/" class="main-btn">🏠 Home</a>
-    </div>
-  </div>
+        <section class="dynasty" id="chola">
+            <div class="dynasty-header">
+                <div class="dynasty-icon">🐅</div>
+                <h2>சோழர் (Chola Dynasty)</h2>
+            </div>
+            <div class="img-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Brihadeeswarar_Temple_view.jpg/1280px-Brihadeeswarar_Temple_view.jpg" alt="Brihadeeswarar Temple, Thanjavur">
+            </div>
 
-  <script>
-    // Current language flag: true = Tamil; false = English.
-    let isTamil = true;
-    function toggleLanguage() {
-      isTamil = !isTamil;
-      // Update toggle button text
-      document.getElementById("lang-label").innerText = isTamil ? "English" : "தமிழ்";
-      
-      // Update page title
-      document.getElementById("page-title").innerText = isTamil ? 
-        "🏛️ தமிழர் வரலாறு: சேரர், சோழர், பாண்டியர்" : 
-        "🏛️ Tamil History: Chera, Chola, Pandya";
-      
-      // Toggle visibility of language-specific content:
-      // Show Tamil content if isTamil is true; otherwise, show English.
-      let taElements = document.querySelectorAll(".content.ta");
-      let enElements = document.querySelectorAll(".content.en");
-      
-      if(isTamil) {
-        taElements.forEach(el => el.style.display = "block");
-        enElements.forEach(el => el.style.display = "none");
-      } else {
-        taElements.forEach(el => el.style.display = "none");
-        enElements.forEach(el => el.style.display = "block");
-      }
-    }
-  </script>
+            <div class="content ta" id="chola-ta">
+                <h3>வரலாற்று மற்றும் ஆட்சிக்காலம்</h3>
+                <p>சோழர்கள் தென்னிந்தியாவின் மிகவும் புகழ்பெற்ற அரச மரபுகளில் ஒன்றாகும். அவர்கள் கி.பி. 9 ஆம் நூற்றாண்டு முதல் 13 ஆம் நூற்றாண்டு வரை தஞ்சாவூரைத் தலைநகராகக் கொண்டு வலிமைமிக்க பேரரசாக விளங்கினர். ராஜராஜ சோழன் I மற்றும் ராஜேந்திர சோழன் I போன்ற மாபெரும் மன்னர்கள் சோழப் பேரரசை தென்கிழக்காசியா வரை விரிவுபடுத்தினர்.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">கி.பி. 850 – 1014</div>
+                        <div class="timeline-content">
+                            <h4>ஆரம்ப மற்றும் இடைக்கால சோழர்கள்</h4>
+                            <p>விஜயாலய சோழன் மற்றும் பராந்தக சோழன் I போன்ற மன்னர்கள் சோழர்களின் எழுச்சிக்கு அடித்தளம் அமைத்தனர்.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">கி.பி. 1014 – 1218</div>
+                        <div class="timeline-content">
+                            <h4>பேரரசு சோழர்கள்</h4>
+                            <p>ராஜராஜ சோழன் I, ராஜேந்திர சோழன் I மற்றும் குலோத்துங்க சோழன் I ஆகியோர் சோழப் பேரரசின் பொற்காலத்தை ஆட்சி செய்தனர்.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">கி.பி. 1218 – 1279</div>
+                        <div class="timeline-content">
+                            <h4>பிற்கால சோழர்கள்</h4>
+                            <p>சோழர்களின் செல்வாக்கு படிப்படியாக குறைந்து பாண்டியர்களின் ஆதிக்கம் மேலோங்கியது.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>நிர்வாகம் மற்றும் சமூகம்</h3>
+                <p>சோழர்கள் ஒரு சிறந்த நிர்வாக அமைப்பை கொண்டிருந்தனர். கிராம சுயராஜ்யம் அவர்களின் முக்கிய அம்சமாக இருந்தது. வேளாண்மை மற்றும் வணிகம் செழித்தோங்கியது. சாதி அமைப்பு சமூகத்தில் முக்கிய பங்கு வகித்தது.</p>
+
+                <h3>கலை மற்றும் கட்டிடக்கலை</h3>
+                <p>சோழர்களின் கட்டிடக்கலை திராவிட பாணியின் மிகச்சிறந்த எடுத்துக்காட்டுகளைக் கொண்டுள்ளது. தஞ்சாவூர் பிரகதீஸ்வரர் கோயில், கங்கை கொண்ட சோழபுரம் கோயில் மற்றும் தாராசுரம் ஐராவதேஸ்வரர் கோயில் ஆகியவை அவர்களின் கட்டிடக்கலைக்கு சான்றுகளாக உள்ளன. சோழர் கால வெண்கலச் சிலைகள் உலகப் புகழ்பெற்றவை.</p>
+
+                <div class="gallery">
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Gopuram_Brihadeeswarar_Temple_Thanjavur.jpg/800px-Gopuram_Brihadeeswarar_Temple_Thanjavur.jpg" alt="Brihadeeswarar Temple Gopuram"></div>
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Nataraja_Chola.jpg/800px-Nataraja_Chola.jpg" alt="Chola Nataraja Bronze"></div>
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Gangaikonda_Cholapuram_Temple_entrance.jpg/800px-Gangaikonda_Cholapuram_Temple_entrance.jpg" alt="Gangaikonda Cholapuram Entrance"></div>
+                </div>
+
+                <h3>முக்கிய ஆளுமைகள்</h3>
+                <div class="key-figures">
+                    <div class="figure-card">
+                        <div class="figure-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Raja_Raja_Chola_I.jpg/800px-Raja_Raja_Chola_I.jpg" alt="Raja Raja Chola I"></div>
+                        <div class="figure-info">
+                            <h4>ராஜராஜ சோழன் I</h4>
+                            <p><strong>ஆட்சிக்காலம்:</strong> கி.பி. 985 – 1014</p>
+                            <p><strong>சாதனைகள்:</strong> தஞ்சாவூர் பிரகதீஸ்வரர் கோயிலைக் கட்டினார், கடற்படையை வலிமைப்படுத்தினார்.</p>
+                        </div>
+                    </div>
+                    <div class="figure-card">
+                        <div class="figure-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Rajendra_Chola_I.jpg/800px-Rajendra_Chola_I.jpg" alt="Rajendra Chola I"></div>
+                        <div class="figure-info">
+                            <h4>ராஜேந்திர சோழன் I</h4>
+                            <p><strong>ஆட்சிக்காலம்:</strong> கி.பி. 1014 – 1044</p>
+                            <p><strong>சாதனைகள்:</strong> கங்கை வரை படையெடுத்துச் சென்று கங்கை கொண்ட சோழன் பட்டம் பெற்றார், கடல்கடந்த வெற்றிகள் பெற்றார்.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content en" id="chola-en">
+                <h3>Historical & Political Overview</h3>
+                <p>The Cholas were one of the longest-ruling dynasties in South India. They rose to prominence from the 9th to the 13th century CE, with Thanjavur as their capital. Great rulers like Raja Raja Chola I and Rajendra Chola I expanded the Chola empire as far as Southeast Asia.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">850 – 1014 CE</div>
+                        <div class="timeline-content">
+                            <h4>Early and Medieval Cholas</h4>
+                            <p>Kings like Vijayalaya Chola and Parantaka Chola I laid the foundation for the Chola resurgence.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">1014 – 1218 CE</div>
+                        <div class="timeline-content">
+                            <h4>Imperial Cholas</h4>
+                            <p>The reigns of Raja Raja Chola I, Rajendra Chola I, and Kulothunga Chola I marked the golden age of the Chola empire.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">1218 – 1279 CE</div>
+                        <div class="timeline-content">
+                            <h4>Later Cholas</h4>
+                            <p>The Chola influence gradually declined, and the Pandyas rose to prominence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Administration & Society</h3>
+                <p>The Cholas had a well-organized administrative system, with village self-governance being a key feature. Agriculture and trade flourished under their rule. The caste system played a significant role in society.</p>
+
+                <h3>Art & Architecture</h3>
+                <p>Chola architecture represents the pinnacle of Dravidian style. The Brihadeeswarar Temple in Thanjavur, the Gangaikonda Cholapuram Temple, and the Airavatesvara Temple in Darasuram are testaments to their architectural prowess. Chola bronze sculptures are world-renowned.</p>
+
+                <div class="gallery">
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Gopuram_Brihadeeswarar_Temple_Thanjavur.jpg/800px-Gopuram_Brihadeeswarar_Temple_Thanjavur.jpg" alt="Brihadeeswarar Temple Gopuram"></div>
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Nataraja_Chola.jpg/800px-Nataraja_Chola.jpg" alt="Chola Nataraja Bronze"></div>
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Gangaikonda_Cholapuram_Temple_entrance.jpg/800px-Gangaikonda_Cholapuram_Temple_entrance.jpg" alt="Gangaikonda Cholapuram Entrance"></div>
+                </div>
+
+                <h3>Key Personalities</h3>
+                <div class="key-figures">
+                    <div class="figure-card">
+                        <div class="figure-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Raja_Raja_Chola_I.jpg/800px-Raja_Raja_Chola_I.jpg" alt="Raja Raja Chola I"></div>
+                        <div class="figure-info">
+                            <h4>Raja Raja Chola I</h4>
+                            <p><strong>Reign:</strong> 985 – 1014 CE</p>
+                            <p><strong>Achievements:</strong> Built the Brihadeeswarar Temple in Thanjavur, strengthened the naval power.</p>
+                        </div>
+                    </div>
+                    <div class="figure-card">
+                        <div class="figure-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Rajendra_Chola_I.jpg/800px-Rajendra_Chola_I.jpg" alt="Rajendra Chola I"></div>
+                        <div class="figure-info">
+                            <h4>Rajendra Chola I</h4>
+                            <p><strong>Reign:</strong> 1014 – 1044 CE</p>
+                            <p><strong>Achievements:</strong> Led military expeditions up to the Ganges, undertook overseas conquests.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dynasty" id="chera">
+            <div class="dynasty-header">
+                <div class="dynasty-icon">🏹</div>
+                <h2>சேரர் (Chera Dynasty)</h2>
+            </div>
+            <div class="img-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Kodungallur_Cheraman_Juma_Masjid.jpg/1280px-Kodungallur_Cheraman_Juma_Masjid.jpg" alt="Cheraman Juma Masjid, Kodungallur">
+            </div>
+
+            <div class="content ta" id="chera-ta">
+                <h3>வரலாற்று மற்றும் ஆட்சிக்காலம்</h3>
+                <p>சேரர்கள் சங்க காலத்தின் முக்கியமான அரச மரபுகளில் ஒன்று. அவர்கள் இன்றைய கேரளப் பகுதியையும், தமிழ்நாட்டின் சில பகுதிகளையும் ஆட்சி செய்தனர். அவர்களின் ஆட்சி கி.மு. 3 ஆம் நூற்றாண்டு முதல் கி.பி. 12 ஆம் நூற்றாண்டு வரை நீடித்தது. சேரர்கள் வணிகத்திலும், குறிப்பாக மிளகு மற்றும் நறுமணப் பொருட்கள் வணிகத்திலும் சிறந்து விளங்கினர்.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">கி.மு. 3 ஆம் நூற்றாண்டு – கி.பி. 3 ஆம் நூற்றாண்டு</div>
+                        <div class="timeline-content">
+                            <h4>சங்க கால சேரர்கள்</h4>
+                            <p>உதியன் சேரலாதன், நெடுஞ்சேரலாதன் மற்றும் சேரன் செங்குட்டுவன் போன்ற புகழ்பெற்ற மன்னர்கள் ஆட்சி செய்தனர்.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">கி.பி. 9 ஆம் நூற்றாண்டு – கி.பி. 12 ஆம் நூற்றாண்டு</div>
+                        <div class="timeline-content">
+                            <h4>இரண்டாம் சேரப் பேரரசு (குலசேகரப் பேரரசு)</h4>
+                            <p>குலசேகர வர்மன் போன்ற மன்னர்கள் இப்பேரரசை வழிநடத்தினர். இக்காலம் கலை மற்றும் இலக்கியத்தின் பொற்காலமாக கருதப்படுகிறது.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>வணிகம் மற்றும் பொருளாதாரம்</h3>
+                <p>சேரர்கள் ரோமானியப் பேரரசுடனும், மத்திய கிழக்கு நாடுகளுடனும் விரிவான வணிகத் தொடர்புகளைக் கொண்டிருந்தனர். அவர்களின் முக்கிய ஏற்றுமதிப் பொருட்கள் மிளகு, தந்தம், முத்துக்கள் மற்றும் விலையுயர்ந்த கற்கள் ஆகும். முசிறி அவர்களின் முக்கியமான துறைமுகமாக விளங்கியது.</p>
+
+                <h3>கலை மற்றும் இலக்கியம்</h3>
+                <p>சேரர்கள் தமிழ் மற்றும் மலையாள இலக்கியத்திற்கு பெரும் பங்களிப்பு செய்தனர். சிலப்பதிகாரம் சேர இளவரசன் ஒருவரைப் பற்றிய கதையைக் கூறுகிறது. மலையாள மொழியின் ஆரம்பகால இலக்கியப் படைப்புகள் சேரர் காலத்தில் தோன்றின.</p>
+
+                <div class="gallery">
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Ayyappan_statue_at_Sabarimala.jpg/800px-Ayyappan_statue_at_Sabarimala.jpg" alt="Ayyappan Statue, Sabarimala"></div>
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Kathakali_dancer_at_Kerala_Kalamandalam.jpg/800px-Kathakali_dancer_at_Kerala_Kalamandalam.jpg" alt="Kathakali Dancer"></div>
+                    <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Spices_of_Kerala.jpg/800px-Spices_of_Kerala.jpg" alt="Spices of Kerala"></div>
+                </div>
+
+                <h3>முக்கிய ஆளுமைகள்</h3>
+                <div class="key-figures">
+                    <div class="figure-card">
+                        <div class="figure-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Ilayaraja.jpg/800px-Ilayaraja.jpg" alt="Ilayaraja (representative)"></div>
+                        <div class="figure-info">
+                            <h4>சேரன் செங்குட்டுவன்</h4>
+                            <p><strong>ஆட்சிக்காலம்:</strong> கி.பி. 2 ஆம் நூற்றாண்டு</p>
+                            <p><strong>சாதனைகள்:</strong> வட இந்தியப் படையெடுப்பு, சிலப்பதிகாரத்தில் புகழப்படுபவர்.</p>
+                        </div>
+                    </div>
+                    <div class="figure-card">
+                        <div class="figure-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Kulasekhara_Varman_statue.jpg/800px-Kulasekhara_Varman_statue.jpg" alt="Kulasekhara Varman"></div>
+                        <div class="figure-info">
+                            <h4>குலசேகர வர்மன்</h4>
+                            <p><strong>ஆட்சிக்காலம்:</strong> கி.பி. 9 ஆம் நூற்றாண்டு – 11 ஆம் நூற்றாண்டு</p>
+                            <p><strong>சாதனைகள்:</strong> இரண்டாம்
+                              சேரப் பேரரசின் முக்கியமான மன்னர், கலை மற்றும் இலக்கியத்திற்கு ஆதரவளித்தவர்.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="content en" id="chera-en">
+                    <h3>Historical & Political Overview</h3>
+                    <p>The Cheras were an important dynasty of the Sangam period, ruling over parts of present-day Kerala and some regions of Tamil Nadu. Their reign lasted from around the 3rd century BCE to the 12th century CE. The Cheras were prominent in trade, especially in spices like pepper.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">3rd century BCE – 3rd century CE</div>
+                            <div class="timeline-content">
+                                <h4>Sangam Age Cheras</h4>
+                                <p>Notable rulers include Uthiyan Cheralathan, Nedunjeran Adal, and Cheran Senguttuvan.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">9th century – 12th century CE</div>
+                            <div class="timeline-content">
+                                <h4>Second Chera Empire (Kulasekhara Dynasty)</h4>
+                                <p>Kings like Kulasekhara Varman led this empire, a period considered a golden age for art and literature in the region.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <h3>Trade & Economy</h3>
+                    <p>The Cheras had extensive trade relations with the Roman Empire and the Middle East. Their primary exports included pepper, ivory, pearls, and precious stones. Muziris was their major port city.</p>
+    
+                    <h3>Art & Literature</h3>
+                    <p>The Cheras made significant contributions to Tamil and Malayalam literature. Silappatikaram tells the story of a Chera prince. Early forms of Malayalam literature emerged during the Chera period.</p>
+    
+                    <div class="gallery">
+                        <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Ayyappan_statue_at_Sabarimala.jpg/800px-Ayyappan_statue_at_Sabarimala.jpg" alt="Ayyappan Statue, Sabarimala"></div>
+                        <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Kathakali_dancer_at_Kerala_Kalamandalam.jpg/800px-Kathakali_dancer_at_Kerala_Kalamandalam.jpg" alt="Kathakali Dancer"></div>
+                        <div class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Spices_of_Kerala.jpg/800px-Spices_of_Kerala.jpg" alt="Spices of Kerala"></div>
+                    </div>
+    
+                    <h3>Key Personalities</h3>
+                    <div class="key-figures">
+                        <div class="figure-card">
+                            <div class="figure-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Ilayaraja.jpg/800px-Ilayaraja.jpg" alt="Ilayaraja (representative)"></div>
+                            <div class="figure-info">
+                                <h4>Cheran Senguttuvan</h4>
+                                <p><strong>Reign:</strong> 2nd century CE</p>
+                                <p><strong>Achievements:</strong> Known for his military expeditions to North India, a prominent figure in Silappatikaram.</p>
+                            </div>
+                        </div>
+                        <div class="figure-card">
+                            <div class="figure-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Kulasekhara_Varman_statue.jpg/800px-Kulasekhara_Varman_statue.jpg" alt="Kulasekhara Varman"></div>
+                            <div class="figure-info">
+                                <h4>Kulasekhara Varman</h4>
+                                <p><strong>Reign:</strong> 9th – 11th century CE</p>
+                                <p><strong>Achievements:</strong> A significant ruler of the Second Chera Empire, patron of art and literature.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <section class="dynasty" id="pandya">
+                <div class="dynasty-header">
+                    <div class="dynasty-icon">🐟</div>
+                    <h2>பாண்டியர் (Pandya Dynasty)</h2>
+                </div>
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1582728802866-8e0de453db8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Meenakshi Temple, Madurai">
+                </div>
+    
+                <div class="content ta" id="pandya-ta">
+                    <h3>வரலாற்று மற்றும் ஆட்சிக்காலம்</h3>
+                    <p>பாண்டியர்கள் மதுரை நகரத்தை மையமாக்கி தென்மேற்குத் தமிழ்நாட்டில் ஆட்சி செய்தார்கள். கி.மு. 600 முதல் கி.பி. 1400 வரை பல சந்தர்ப்பங்களில் வலமடைந்த இந்த பேரரசு கவிஞர் மணிமேகலை, சிலப்பதிகாரம் போன்ற தலைசிறந்த சங்க இலக்கியங்களை ஊக்குவித்தது.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">600 BCE – 200 CE</div>
+                            <div class="timeline-content">
+                                <h4>ஆரம்ப பாண்டியர் காலம்</h4>
+                                <p>சங்க இலக்கியங்களில் Erwadi, Nedunjeliyan I போன்ற ஆளுமைகள் குறிப்பிடப்படுகின்றன.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">200 CE – 565 CE</div>
+                            <div class="timeline-content">
+                                <h4>நெடுஞ்சேரன் மேற்குப் காலம்</h4>
+                                <p>நெடுஞ்சேரன் II, கொச்சுவேலன் போன்ற பல அரசர்கள் வளம் அடைந்தார்கள்.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">900 CE – 1300 CE</div>
+                            <div class="timeline-content">
+                                <h4>மதுரை பாண்டியர் சோழர் போட்டிகள்</h4>
+                                <p>சோழர் மற்றும் சேர் பேரரசுகளுடன் பல முறை போராடினர். அரண்மனை மற்றும் கோயில்களைச் செழிப்பூட்டினர்.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">1310 CE</div>
+                            <div class="timeline-content">
+                                <h4>மாவோன்றவர்கள் காலம்</h4>
+                                <p>கலிக்கொண்ட சோழம் ஆதியாக பல இடங்களில் வீழ்ச்சி.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <h3>கடல வணிகம் மற்றும் பொருளாதாரம்</h3>
+                    <p>பாண்டிய துறைமுகங்கள், குறிப்பாக அமராவதி, நாகப்பட்டினம், எலூர், சர்வதேச வர்த்தக அழகு மலக்கு ஏலக்காய், மணற்கரியலா போன்ற பொருட்களை ஏமாற்றிவர்த்தகத்திற்குப் பயன்படுத்தின.</p>
+    
+                    <h3>கலை, கட்டிடக்கலை மற்றும் இலக்கியம்</h3>
+                    <p>மதுரை மீனாட்சி அம்மன் கோயில், திருவிளையாடு தேவதாஸி நடனமாடிய அரங்குகள், மணிமேகலை போன்ற தொன்ம நூல்கள் இந்தப் பேரரசின் பண்பாட்டுத் தலைசிறந்தவை.</p>
+    
+                    <div class="gallery">
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1614945264407-3cf9a26a3a14?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Meenakshi Temple Interior"></div>
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1575494941361-1ed5e11b29c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pandya Bronze Sculpture"></div>
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1597045166518-1fca291cb4c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Madurai Spice Market"></div>
+                    </div>
+    
+                    <h3>முக்கிய ஆளுமைகள்</h3>
+                    <div class="key-figures">
+                        <div class="figure-card">
+                            <div class="figure-img"><img src="https://images.unsplash.com/photo-1607082341227-2b10a7725450?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Nedunjeliyan"></div>
+                            <div class="figure-info">
+                                <h4>நெடுஞ்சேரன் I</h4>
+                                <p><strong>ஆட்சிக்காலம்:</strong> 2–3 நூற்றாண்டு CE</p>
+                                <p><strong>சாதனைகள்:</strong> மேல்நாட்டு பயணங்களைக் கனிவுடன் நடத்தியவர்</p>
+                            </div>
+                        </div>
+                        <div class="figure-card">
+                            <div class="figure-img"><img src="https://images.unsplash.com/photo-1608447889468-88a3a3831f8a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Arikesari Maravarman"></div>
+                            <div class="figure-info">
+                                <h4>அரிகேசரி மரவமரன்</h4>
+                                <p><strong>ஆட்சிக்காலம்:</strong> 7–8 நூற்றாண்டு CE</p>
+                                <p><strong>சாதனைகள்:</strong> கௌதமராஜா என்பவரைத் தோற்கடித்தார்</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="content en" id="pandya-en">
+                    <h3>Historical & Political Overview</h3>
+                    <p>The Pandya kingdom, centered on Madurai, flourished in south Tamil Nadu from around 600 BCE to 1400 CE. They were great patrons of Tamil literature—works like Cilappatikāram and Manimekalai were composed under their support.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">600 BCE – 200 CE</div>
+                            <div class="timeline-content">
+                                <h4>Early Pandya Period</h4>
+                                <p>Figures such as Nedunjeliyan I are mentioned in Sangam poems.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">200 CE – 565 CE</div>
+                            <div class="timeline-content">
+                                <h4>Golden Pandya Era</h4>
+                                <p>Pandya kings like Kochadaiyan achieved victories in northern Tamil regions.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">900 CE – 1300 CE</div>
+                            <div class="timeline-content">
+                                <h4>Madurai Pandya Conflicts</h4>
+                                <p>Frequent clashes with Chola and Chera dynasties; expanded temple building.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">1310 CE</div>
+                            <div class="timeline-content">
+                                <h4>Fourth Pandya Decline</h4>
+                                <p>Invasions by Delhi Sultanate and internal strife weakened the dynasty.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <h3>Maritime Trade & Economy</h3>
+                    <p>Pandya ports like Korkai, Uduthurai, and Madurai were major spice export centres—pepper, cloves, cardamom, sandalwood, and gold bullion were shipped to Rome, Egypt, and Southeast Asia.</p>
+    
+                    <h3>Art, Architecture & Literature</h3>
+                    <p>The Meenakshi Temple’s gopurams, dancing halls for Devadasis, and classical epics such as Manimekalai exemplify Pandya cultural achievements.</p>
+    
+                    <div class="gallery">
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1614945264407-3cf9a26a3a14?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Meenakshi Temple Interior"></div>
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1575494941361-1ed5e11b29c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pandya Bronze Sculpture"></div>
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1597045166518-1fca291cb4c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Madurai Spice Market"></div>
+                    </div>
+    
+                    <h3>Key Personalities</h3>
+                    <div class="key-figures">
+                        <div class="figure-card">
+                            <div class="figure-img"><img src="https://images.unsplash.com/photo-1607082341227-2b10a7725450?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Nedunjeliyan"></div>
+                            <div class="figure-info">
+                                <h4>Nedunjeliyan I</h4>
+                                <p><strong>Reign:</strong> 2nd–3rd century CE</p>
+                                <p><strong>Achievements:</strong> Expanded northern borders under his rule.</p>
+                            </div>
+                        </div>
+                        <div class="figure-card">
+                            <div class="figure-img"><img src="https://images.unsplash.com/photo-1608447889468-88a3a3831f8a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Arikesari Maravarman"></div>
+                            <div class="figure-info">
+                                <h4>Arikesari Maravarman</h4>
+                                <p><strong>Reign:</strong> 7th–8th century CE</p>
+                                <p><strong>Achievements:</strong> Defeated rival kingdoms in Kerala.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <section class="dynasty" id="legacy">
+                <div class="dynasty-header">
+                    <div class="dynasty-icon">🏺</div>
+                    <h2>பாரம்பரியம் & Legacy</h2>
+                </div>
+                <div class="content ta">
+                    <h3>சாதனை மற்றும் கலாச்சாரப் பதிப்புகள்</h3>
+                    <p>மூவேந்தர்களின் கட்டிடக்கலை, இலக்கியம், இசை, வணிகம் மற்றும் நிர்வாக முறைகள் இன்று உலகப் பாரம்பரியமாக மதிப்பு பெற்றுள்ளன. யுனெஸ்கோ உலக பாரம்பரியத் தளங்களில் பிரகதீஸ்வரர் கோயில்கள், ஐராவதேஸ்வரர் கோயில், மீனாட்சி அம்மன் கோயில் зэрэгவைச் சேர்த்துள்ளது.</p>
+                    <h3>மணிமேகலை முதல் மணிபலால்</h3>
+                    <p>பாண்டியர்கள் ஊக்குவித்த சமூகவியல் மற்றும் இலக்கியப் பண்புகள், கம்பனின் கம்பராமாயணம் போன்ற எழுத்து பண்புகள் தமிழ் மொழியின் செழிமிக்க அடையாளமாகி உள்ளன.</p>
+                    <h3>இன்றைய ஈர்ப்பு</h3>
+                    <p>தமிழ் நாடு, கேரளம், இலங்கை மற்றும் உலகை கடந்து வாழும் தமிழ் கூட்டமைப்புகள் மூவேந்தர்கள் பதித்த வழிமுறைகள், விழாக்கள், பாடல்கள், நடனங்கள் மற்றும் தொல்லியல் தளங்களை வாழ்வில் கொண்டுவருகின்றன.</p>
+                </div>
+                <div class="content en">
+                    <h3>Achievements & Cultural Heritage</h3>
+                    <p>The architectural marvels, literature, music, trade networks, and governance systems of the Three Crowned Kings are recognized today as world heritage. UNESCO has inscribed the Brihadisvara Temples, Airavatesvara Temple, and Meenakshi Temple among its World Heritage Sites.</p>
+                    <h3>From Manimekalai to Ramayana</h3>
+                    <p>The literary traditions fostered by the Pandyas—Manimekalai, Cilappatikāram—and the epic works of the Cholas—Kambar’s Kamba Ramayanam—remain central to Tamil cultural identity.</p>
+                    <h3>Modern Resonance</h3>
+                    <p>Across Tamil Nadu, Kerala, Sri Lanka, and the global Tamil diaspora, festivals, temple rituals, classical music and dance, and archaeological sites keep the legacies of the Moovendhars alive.</p>
+                </div>
+            </section>
+        </div>
+    
+        <footer>
+            <p>© 2025 தமிழர் வரலாறு | Tamil Heritage. All rights reserved.</p>
+        </footer>
+    
+        <script>
+            // Toggle between Tamil and English
+            function toggleLanguage() {
+                const isTamil = document.body.getAttribute('lang') === 'ta';
+                const newLang = isTamil ? 'en' : 'ta';
+                document.body.setAttribute('lang', newLang);
+            document.querySelectorAll('.content').forEach(el => {
+                el.style.display = el.classList.contains(newLang) ? 'block' : 'none';
+            });
+            document.getElementById('lang-label').innerText = newLang === 'ta' ? 'தமிழ்' : 'English';
+        }
+
+        // Toggle Light / Dark Theme
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const themeLabel = document.body.classList.contains('light-mode') ? 'ஒளி' : 'இருள்';
+            document.getElementById('theme-label').innerText = themeLabel;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedLang = localStorage.getItem('language') || 'ta';
+            document.body.setAttribute('lang', storedLang);
+            document.querySelectorAll('.content').forEach(el => {
+                el.style.display = el.classList.contains(storedLang) ? 'block' : 'none';
+            });
+            document.getElementById('lang-label').innerText = storedLang === 'ta' ? 'தமிழ்' : 'English';
+
+            const storedTheme = localStorage.getItem('theme') || '';
+            if (storedTheme === 'light-mode') {
+                document.body.classList.add('light-mode');
+                document.getElementById('theme-label').innerText = 'இருள்';
+            } else {
+                document.getElementById('theme-label').innerText = 'ஒளி';
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('language', document.body.getAttribute('lang'));
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light-mode' : '');
+        });
+    </script>
 </body>
 </html>
