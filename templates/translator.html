@@ -1,67 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Tanglish ➡️ தமிழ் Translator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tanglish ➡️ தமிழ் Translator</title>
+
+  <style>
+    /*==============================
+      THEME VARIABLES
+    ==============================*/
+    :root {
+      --bg: #fff;
+      --fg: #222;
+      --primary: #4a90e2;
+      --input-bg: #f0f0f0;
+      --input-border: #ccc;
+      --header-height: 200px;
+      --transition: 0.3s ease;
+    }
+    body[data-theme="dark"] {
+      --bg: #1e1e1e;
+      --fg: #e0e0e0;
+      --primary: #60a5fa;
+      --input-bg: #2b2b2b;
+      --input-border: #444;
+    }
+
+    /*==============================
+      RESET & BASE
+    ==============================*/
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height:1.5;
+      transition: background var(--transition), color var(--transition);
+      scroll-behavior: smooth;
+    }
+    a.skip-link {
+      position:absolute; top:-40px; left:0;
+      background:#000; color:#fff; padding:8px;
+      z-index:100; transition: top 0.3s;
+    }
+    a.skip-link:focus { top:0; }
+
+    /*==============================
+      ANIMATIONS
+    ==============================*/
+    .fade-in-up {
+      animation: fadeInUp 0.5s var(--transition) both;
+    }
+    .fade-in {
+      animation: fadeIn 0.4s var(--transition) both;
+    }
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity:0; }
+      to   { opacity:1; }
+    }
+
+    /*==============================
+      HEADER
+    ==============================*/
+    header {
+      position:relative; height:var(--header-height); overflow:hidden;
+    }
+    header::before {
+      content:''; position:absolute; inset:0;
+      background: url("{{ url_for('static', filename='images/header-bg.jpg') }}") center/cover no-repeat;
+      filter: blur(4px) brightness(0.6);
+    }
+    .header-inner {
+      position:relative; z-index:1;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 1rem; height:100%;
+    }
+    .header-inner h1 {
+      font-size:1.8rem; color:#e9ecec;
+      text-shadow:0 1px 4px rgba(151, 151, 151, 0.6);
+    }
+    .header-actions button {
+      background:rgba(255,255,255,0.8);
+      border:none; padding:0.5rem 1rem; margin-left:0.5rem;
+      border-radius:4px; cursor:pointer;
+      transition: transform var(--transition);
+    }
+    .header-actions button:hover,
+    .header-actions button:focus {
+      transform:scale(1.05);
+      outline:none;
+    }
+
+    /*==============================
+      MAIN CONTAINER
+    ==============================*/
+    main.container {
+      max-width:600px; margin:-80px auto 2rem;
+      background:var(--bg); padding:1.5rem; border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    }
+    .form-group { margin-bottom:1rem; }
+    label { display:block; margin-bottom:0.3rem; font-weight:600; }
+    select, textarea {
+      width:100%; padding:0.75rem;
+      border:1px solid var(--input-border);
+      border-radius:4px; background:var(--input-bg);
+      color:var(--fg); font-size:1rem;
+      transition: border-color var(--transition);
+    }
+    select:focus, textarea:focus {
+      border-color:var(--primary); outline:none;
+    }
+    .button-group {
+      display:flex; gap:0.5rem;
+    }
+    .btn {
+      flex:1; background:var(--primary); color:#fff;
+      border:none; padding:0.75rem; font-size:1rem;
+      border-radius:4px; cursor:pointer;
+      transition: filter var(--transition), transform var(--transition);
+    }
+    .btn:hover, .btn:focus {
+      filter:brightness(1.1);
+      transform:translateY(-2px);
+      outline:none;
+    }
+
+    /*==============================
+      OUTPUT
+    ==============================*/
+    .output {
+      margin-top:1.5rem; padding:1rem;
+      background:var(--input-bg); border-radius:4px;
+      border:1px solid var(--input-border);
+    }
+    .output h2 { margin-bottom:0.5rem; }
+    .output p { white-space:pre-wrap; line-height:1.4; }
+
+    /*==============================
+      FOOTER
+    ==============================*/
+    footer.site-footer {
+      text-align:center; padding:1rem 0;
+      font-size:0.85rem; color:var(--fg);
+    }
+
+    /*==============================
+      RESPONSIVE
+    ==============================*/
+    @media (max-width:600px) {
+      main.container { margin:-60px 1rem 1rem; padding:1rem; }
+      .header-inner {
+        flex-direction:column; justify-content:center; gap:0.5rem;
+        text-align:center;
+      }
+      .header-inner h1 { font-size:1.5rem; }
+      .header-actions button { font-size:0.9rem; padding:0.4rem 0.8rem; }
+    }
+  </style>
 </head>
-<body>
-    <div class="nav">
-        <h1>Translator</h1>
-        <button class="home-btn" onclick="window.location.href='/'">Home</button>
+<body data-theme="light">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <h1>Translator</h1>
+      <div class="header-actions">
+        <button onclick="location.href='/'">Home</button>
+        <button id="theme-toggle" aria-label="Toggle dark/light">🌙</button>
+      </div>
     </div>
-    <div class="container">
-        <form method="post" id="translate-form">
-            <textarea name="text" id="text" placeholder="Type or speak in Tamil / Tanglish / English" required>{{ request.form.get('text', '') }}</textarea>
-            <div class="button-group">
-                <button type="submit">Translate</button>
-                <button type="button" id="mic-btn" title="Speak">🎤</button>
-            </div>
-        </form>
-        {% if translated_text %}
-            <div class="output">
-                <h2>Translated Text:</h2>
-                <p class="formatted-text">{{ translated_text }}</p>
-            </div>
-        {% endif %}
+  </header>
+
+  <!-- MAIN -->
+  <main id="main" class="container fade-in-up">
+    <form method="post" id="translate-form">
+      <div class="form-group">
+        <label for="model">Choose model</label>
+        <select name="model" id="model">
+          {% for model in llm_models %}
+            <option value="{{ model.id }}"
+              {% if model.id == selected_model %}selected{% endif %}>
+              {{ model.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="text">Your text</label>
+        <textarea name="text" id="text" placeholder="Type or speak…" required>{{ user_input }}</textarea>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn">Translate</button>
+        <button type="button" id="mic-btn" class="btn" aria-label="Speak">🎤</button>
+      </div>
+    </form>
+
+    {% if translated_text %}
+    <div class="output fade-in" role="region" aria-live="polite">
+      <h2>Translated Text:</h2>
+      <p>{{ translated_text }}</p>
     </div>
+    {% endif %}
+  </main>
 
-    <script>
-        const micBtn = document.getElementById('mic-btn');
-        const textarea = document.getElementById('text');
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    &copy; 2025 Your Translator App. All rights reserved.
+  </footer>
 
-        micBtn.addEventListener('click', () => {
-            if (!('webkitSpeechRecognition' in window)) {
-                alert("Sorry, your browser doesn't support speech recognition.");
-                return;
-            }
+  <!-- SCRIPTS -->
+  <script>
+    // Speech recognition
+    const micBtn = document.getElementById('mic-btn');
+    const textarea = document.getElementById('text');
+    micBtn.addEventListener('click', () => {
+      if (!window.webkitSpeechRecognition) {
+        return alert("Speech recognition not supported");
+      }
+      const rec = new webkitSpeechRecognition();
+      rec.lang = navigator.language || 'en-US';
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      rec.continuous = false;
+      rec.start();
+      micBtn.textContent = '🎙️';
+      micBtn.disabled = true;
 
-            // Use browser language or default to en-US for speech recognition
-            const selectedLang = navigator.language || 'en-US';
-            const recognition = new webkitSpeechRecognition();
-            recognition.lang = selectedLang;
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 1;
-            recognition.continuous = false;
+      rec.onresult = e => textarea.value += e.results[0][0].transcript + ' ';
+      rec.onerror  = e => alert('Error: ' + e.error);
+      rec.onend    = () => { micBtn.textContent = '🎤'; micBtn.disabled = false; };
+    });
 
-            recognition.start();
-            micBtn.innerText = '🎙️ Listening...';
-            micBtn.disabled = true;
-
-            recognition.onresult = function(event) {
-                const transcript = event.results[0][0].transcript;
-                textarea.value += transcript + " ";
-            };
-
-            recognition.onerror = function(event) {
-                alert('Error: ' + event.error);
-            };
-
-            recognition.onend = function() {
-                micBtn.innerText = '🎤';
-                micBtn.disabled = false;
-            };
-        });
-    </script>
+    // Theme toggle
+    const toggle = document.getElementById('theme-toggle');
+    const bodyEl = document.body;
+    const saved = localStorage.getItem('theme');
+    if (saved) bodyEl.setAttribute('data-theme', saved);
+    toggle.textContent = bodyEl.dataset.theme === 'dark' ? '☀️' : '🌙';
+    toggle.addEventListener('click', () => {
+      const next = bodyEl.dataset.theme === 'dark' ? 'light' : 'dark';
+      bodyEl.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
 </body>
 </html>

@@ -1,47 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Tamil Hackathon</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
   <style>
-    /* Overlay Background using the local image from static/images/homepage.jpg */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 1000vw;
-      height: 1000vh;
-      background: url('{{ url_for("static", filename="images/homepage.jpg") }}') no-repeat center center;
-      background-size: cover;
-      filter: blur(4px);
-      transform: scale(1.05);
-      z-index: -1;
+    /* ─── THEME VARIABLES ───────────────────────────────────────── */
+    :root {
+      --clr-primary: #ff5f6d;
+      --clr-secondary: #ffc371;
+      --clr-text: #fff;
+      --clr-bg: #000;
+      --clr-ui-bg: rgba(0,0,0,0.5);
+      --ff-main: 'Poppins', sans-serif;
     }
-    /* Ensure that content is positioned above the overlay */
-    .nav, .container {
-      position: relative;
+    [data-theme="light"] {
+      --clr-text: #111;
+      --clr-bg: #f5f5f5;
+      --clr-ui-bg: rgba(255,255,255,0.8);
+    }
+
+    /* ─── RESET & BASE ──────────────────────────────────────────── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--clr-bg); }
+    body {
+      font-family: var(--ff-main);
+      color: var(--clr-text);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── SLIDESHOW ───────────────────────────────────────────────── */
+    #slideshow { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+    .slide {
+      position: absolute; top: 0; left: -10%;
+      width: 120vw; height: 120vh;
+      background-size: cover; background-position: center;
+      filter: blur(5px) brightness(0.6);
+      opacity: 0; animation: fade 25s infinite;
+    }
+    @keyframes fade { 0%,20%{opacity:1} 25%,100%{opacity:0} }
+    .slide:nth-child(1){ background-image: url("{{ url_for('static', filename='homepage_images/1.jpg') }}"); animation-delay:0s; }
+    .slide:nth-child(2){ background-image: url("{{ url_for('static', filename='homepage_images/2.jpg') }}"); animation-delay:5s; }
+    .slide:nth-child(3){ background-image: url("{{ url_for('static', filename='homepage_images/3.jpg') }}");animation-delay:10s; }
+    .slide:nth-child(4){ background-image: url("{{ url_for('static', filename='homepage_images/4.jpg') }}"); animation-delay:15s; }
+    .slide:nth-child(5){ background-image: url("{{ url_for('static', filename='homepage_images/5.jpg') }}"); animation-delay:20s; }
+
+    .gradient-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(130deg, rgba(255,0,150,0.25), rgba(0,204,255,0.25));
+      background-size: 300% 300%; animation: gradientMove 15s ease infinite;
       z-index: 1;
     }
+    @keyframes gradientMove { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    /* ─── NAVIGATION ─────────────────────────────────────────────── */
+    nav.nav {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: var(--clr-ui-bg); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; z-index: 3;
+    }
+    .logo { font-size: 1.8rem; font-weight: 800; letter-spacing: 1px; }
+    .nav-links {
+      display: flex; gap: 1.5rem;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .nav-links a:hover { color: var(--clr-secondary); }
+
+    /* mobile slide-out */
+    .burger {
+      display: none; flex-direction: column; gap: 4px; cursor: pointer;
+    }
+    .burger span {
+      width: 25px; height: 3px; background: var(--clr-text);
+      transition: all .3s ease;
+    }
+    @media (max-width: 700px) {
+      .nav-links { 
+        position: fixed; top: 0; right: -100%;
+        height: 100vh; width: 200px;
+        background: var(--clr-ui-bg); flex-direction: column;
+        padding: 4rem 1rem; gap: 1.5rem;
+      }
+      .nav-links.open { right: 0; }
+      .burger { display: flex; }
+    }
+
+    /* switches */
+    .switches {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .switches button {
+      background: transparent; border: 2px solid var(--clr-text);
+      padding: .4rem .8rem; border-radius: 30px; font-weight: 600;
+      cursor: pointer; transition: background .3s, color .3s;
+    }
+    .switches button:hover { background: var(--clr-text); color: var(--clr-bg); }
+
+    /* ─── HERO ────────────────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 60vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; padding: 6rem 1rem 2rem; z-index: 2;
+    }
+    .hero h1 {
+      font-size: clamp(2rem,6vw,4rem); font-weight: 800;
+      margin-bottom: .5rem; opacity: 0; animation: slideIn .8s forwards;
+    }
+    .hero p {
+      font-size: clamp(1rem,3vw,1.25rem);
+      max-width: 600px; margin-bottom: 2rem;
+      opacity: 0; animation: fadeIn .8s .5s forwards;
+    }
+    .btn-start {
+      opacity: 0;
+      padding: 1rem 2rem; font-size: 1rem; font-weight: 600;
+      color: #fff; background: linear-gradient(45deg, var(--clr-primary), var(--clr-secondary));
+      border: none; border-radius: 50px; cursor: pointer;
+      animation: fadeIn .8s 1s forwards;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .btn-start:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    /* ─── FEATURES ────────────────────────────────────────────────── */
+    .features {
+      position: relative; padding: 4rem 1rem; z-index: 2;
+    }
+    .features h2 {
+      text-align: center; font-size: 2.5rem; margin-bottom: 2rem;
+      opacity: 0; animation: slideIn .8s forwards;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 2rem;
+    }
+    .feature-card {
+      background: var(--clr-ui-bg); backdrop-filter: blur(8px);
+      padding: 2rem; border-radius: 16px;
+      display: flex; flex-direction: column; align-items: center;
+      opacity: 0; animation: fadeIn 1s .5s forwards;
+      transition: transform .3s, box-shadow .3s, background .3s;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+      background: rgba(255,255,255,0.05);
+    }
+    .feature-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .feature-card h3 { font-size: 1.25rem; margin-bottom: .5rem; }
+    .feature-card p { font-size: 1rem; opacity: .9; margin-bottom: 1.5rem; }
+    .feature-card button {
+      margin-top: auto; padding: .6rem 1.2rem;
+      border: none; border-radius: 30px;
+      background: linear-gradient(45deg, var(--clr-primary), var(--clr-secondary));
+      color: #fff; font-weight: 600; cursor: pointer;
+      transition: background .3s;
+    }
+    .feature-card button:hover {
+      background: linear-gradient(45deg, var(--clr-secondary), var(--clr-primary));
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────── */
+    footer.footer {
+      background: var(--clr-ui-bg); backdrop-filter: blur(8px);
+      padding: 2rem 1rem; text-align: center; color: var(--clr-text);
+      z-index: 2; position: relative;
+    }
+    footer .social-links { margin: 1rem 0; display: flex; justify-content: center; gap: 1rem; }
+    footer .social-links a { font-size: 1.5rem; transition: transform .3s; }
+    footer .social-links a:hover { transform: scale(1.2); }
+    footer p { font-size: .9rem; opacity: .7; }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────────────── */
+    @keyframes slideIn { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn  { from{opacity:0}to{opacity:1} }
+
   </style>
 </head>
 <body>
-  <!-- Background Overlay -->
-  <div class="overlay"></div>
-  
-  <!-- Navigation Bar -->
-  <div class="nav">
-    <h1>Electro Spark</h1>
+
+  <!-- BACKGROUND SLIDESHOW -->
+  <div id="slideshow">
+    <div class="slide"></div><div class="slide"></div>
+    <div class="slide"></div><div class="slide"></div>
+    <div class="slide"></div>
+    <div class="gradient-overlay"></div>
   </div>
-  
-  <!-- Main Content Container -->
-  <div class="container">
-    <h2>Welcome! Select an option</h2>
-    <div class="button-group">
-      <button onclick="window.location.href='/translator'">Translator</button>
-      <button onclick="window.location.href='/grammar'">Tamil Grammar Corrector</button>
-      <button onclick="window.location.href='/history'">Kings</button>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="logo">Electro Spark</div>
+    <div class="burger" id="burger">
+      <span></span><span></span><span></span>
     </div>
-  </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#features">Translator</a>
+      <a href="#features">Grammar</a>
+      <a href="#features">Kings</a>
+    </div>
+    <div class="switches">
+      <button class="lang-switch" id="lang-btn">தமிழ்</button>
+      <button class="theme-switch" id="theme-btn">🌙</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 id="welcome-text">Welcome! Select an option</h1>
+    <p id="hero-sub">
+      Empowering Tamil speakers with instant translation, grammar correction, and a dive into our rich royal history.
+    </p>
+    <button class="btn-start" onclick="location.href='#features'">Get Started</button>
+  </section>
+
+  <!-- FEATURES GRID -->
+  <section id="features" class="features">
+    <h2>What would you like to do?</h2>
+    <div class="feature-grid">
+      <div class="feature-card" onclick="location.href='/translator'">
+        <div class="icon">🔄</div>
+        <h3>Translator</h3>
+        <p>Instant Tamil ↔ English translations.</p>
+        <button>Go</button>
+      </div>
+      <div class="feature-card" onclick="location.href='/grammar'">
+        <div class="icon">📝</div>
+        <h3>Grammar Corrector</h3>
+        <p>Refine your Tamil writing with ease.</p>
+        <button>Go</button>
+      </div>
+      <div class="feature-card" onclick="location.href='/history'">
+        <div class="icon">👑</div>
+        <h3>Kings</h3>
+        <p>Explore the Chera, Chola & Pandya dynasties.</p>
+        <button>Go</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="social-links">
+      <a href="#" aria-label="Facebook">📘</a>
+      <a href="#" aria-label="Twitter">🐦</a>
+      <a href="#" aria-label="Instagram">📸</a>
+    </div>
+    <p>&copy; 2025 Electro Spark. All rights reserved.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Mobile menu toggle
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Language toggle
+    let isTamil = false;
+    const navEN = ['Translator','Grammar','Kings'];
+    const navTA = ['மொழிபெயர்ப்பாளர்','இலக்கணம்','மன்னர்கள்'];
+    const titleEN = 'Welcome! Select an option';
+    const titleTA = 'வணக்கம்! ஒரு விருப்பத்தைத் தேர்ந்தெடுக்கவும்';
+    const subEN = 'Empowering Tamil speakers with instant translation, grammar correction, and a dive into our rich royal history.';
+    const subTA = 'மொழிபெயர்ப்பு, இலக்கணத் திருத்தம் மற்றும் வரலாறு ஆய்வுக்கான உத்தரவாதம்.';
+    const cardTitlesEN = ['Translator','Grammar Corrector','Kings'];
+    const cardTitlesTA = ['மொழிபெயர்ப்பாளர்','தமிழ் இலக்கண திருத்தி','மன்னர்கள்'];
+    const cardDescEN = [
+      'Instant Tamil ↔ English translations.',
+      'Refine your Tamil writing with ease.',
+      'Explore the Chera, Chola & Pandya dynasties.'
+    ];
+    const cardDescTA = [
+      'உடனடி தமிழ் ↔ ஆங்கில மொழிபெயர்ப்பு.',
+      'உங்கள் தமிழ் எழுத்தை எளிதாக திருத்தவும்.',
+      'சேரர், சோழர் & பாண்டியர் வரலாறு ஆய்வு.'
+    ];
+    document.getElementById('lang-btn').addEventListener('click', () => {
+      isTamil = !isTamil;
+      document.getElementById('lang-btn').innerText = isTamil ? 'English' : 'தமிழ்';
+      document.getElementById('welcome-text').innerText = isTamil ? titleTA : titleEN;
+      document.getElementById('hero-sub').innerText = isTamil ? subTA : subEN;
+      navLinks.querySelectorAll('a').forEach((a,i) => a.innerText = isTamil ? navTA[i] : navEN[i]);
+      document.querySelectorAll('.feature-card').forEach((card,i) => {
+        card.querySelector('h3').innerText = isTamil ? cardTitlesTA[i] : cardTitlesEN[i];
+        card.querySelector('p').innerText = isTamil ? cardDescTA[i] : cardDescEN[i];
+      });
+    });
+
+    // Theme toggle
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+      const htmlEl = document.documentElement;
+      const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', newTheme);
+      themeBtn.innerText = newTheme === 'dark' ? '🌙' : '☀️';
+    });
+  </script>
 </body>
 </html>
